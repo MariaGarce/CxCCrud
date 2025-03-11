@@ -42,10 +42,32 @@ namespace CRUDCxC.Pages.Transactions
                 return Page();
             }
 
+            // Buscar el cliente para obtener su límite de crédito
+            var client = await _context.Clients.FindAsync(Transaction.ClientId);
+
+            if (client == null)
+            {
+                ModelState.AddModelError("", "El cliente seleccionado no existe.");
+                return Page();
+            }
+
+            // Validar que el monto no supere el límite de crédito
+            if (Transaction.Amount > client.CreditLimit)
+            {
+                ModelState.AddModelError("Transaction.Amount", "El monto no puede ser mayor al límite de crédito del cliente.");
+                return Page();
+            }
+            if (client.Status == Status.Inactive)
+            {
+                ModelState.AddModelError("Transaction.ClientId", "No se pueden realizar transacciones para clientes inactivos.");
+                return Page();
+            }
+
             _context.Transactions.Add(Transaction);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
         }
+
     }
 }

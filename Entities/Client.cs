@@ -12,9 +12,10 @@ public class Client
     public string? Name { get; set; }
     [Required]
     [DisplayName("Cédula")]
+    [CedulaDominicana(ErrorMessage = "El número de cédula no es válido.")]
     public string? IdentificationNumber { get; set; }
-    [Required]
-    [DisplayName("Límite de Credito")]
+    [Required(ErrorMessage = "El límite de crédito es obligatorio.")]
+    [Range(1, double.MaxValue, ErrorMessage = "El límite de crédito debe ser mayor que 0.")]
     public decimal CreditLimit { get; set; }
     [Required]
     [DisplayName("Estado")]

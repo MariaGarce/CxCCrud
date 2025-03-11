@@ -265,3 +265,4 @@
 /Users/mariagarces/CRUDCxC/obj/Debug/net8.0/scopedcss/projectbundle/CRUDCxC.bundle.scp.css
 /Users/mariagarces/CRUDCxC/obj/Debug/net8.0/scopedcss/Components/Layout/MainLayout.razor.rz.scp.css
 /Users/mariagarces/CRUDCxC/obj/Debug/net8.0/scopedcss/Components/Layout/NavMenu.razor.rz.scp.css
+/Users/mariagarces/CRUDCxC/obj/Debug/net8.0/CRUDCxC.sourcelink.json

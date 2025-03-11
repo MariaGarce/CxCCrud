@@ -26,7 +26,6 @@ namespace CRUDCxC.Pages.Clients
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
@@ -37,14 +36,19 @@ namespace CRUDCxC.Pages.Clients
             {
                 return NotFound();
             }
+
             Client = client;
 
-            ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
-.Cast<Status>()
-.Select(e => new { Id = e, Name = e.GetDisplayName() }),
-"Id", "Name");
+            ViewData["StatusList"] = new SelectList(
+                Enum.GetValues(typeof(Status))
+                    .Cast<Status>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }),
+                "Id", "Name"
+            );
+
             return Page();
         }
+
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more information, see https://aka.ms/RazorPagesCRUD.
@@ -53,6 +57,12 @@ namespace CRUDCxC.Pages.Clients
 
             if (!ModelState.IsValid)
             {
+                ViewData["StatusList"] = new SelectList(
+    Enum.GetValues(typeof(Status))
+        .Cast<Status>()
+        .Select(e => new { Id = e, Name = e.GetDisplayName() }),
+    "Id", "Name"
+);
                 return Page();
             }
 

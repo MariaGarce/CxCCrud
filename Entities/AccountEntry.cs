@@ -23,7 +23,8 @@ public class AccountEntry
     [Required]
     [DisplayName("Fecha Asiento")]
     public DateTime EntryDate { get; set; } = DateTime.UtcNow;
-    [Required]
+    [Required(ErrorMessage = "El monto Asiento es obligatorio.")]
+    [Range(1, double.MaxValue, ErrorMessage = "El monto debe ser mayor que 0.")]
     [DisplayName("Monto Asiento")]
     public decimal Amount { get; set; }
     [Required]

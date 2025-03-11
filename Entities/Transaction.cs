@@ -29,7 +29,17 @@ public class Transaction
     public int ClientId { get; set; }
     public Client? Client { get; set; }
 
-    [Required]
-    [DisplayName("Monto")]
+    [Required(ErrorMessage = "El monto es obligatorio.")]
+    [Range(1, double.MaxValue, ErrorMessage = "El monto debe ser mayor que 0.")]
     public decimal Amount { get; set; }
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        var dbContext = (CRUDCxC.Data.CxCDbContext)validationContext.GetService(typeof(CRUDCxC.Data.CxCDbContext));
+        var client = dbContext.Clients.Find(ClientId);
+
+        if (client != null && Amount > client.CreditLimit)
+        {
+            yield return new ValidationResult("El monto no puede ser mayor al límite de crédito del cliente.", new[] { "Amount" });
+        }
+    }
 }
