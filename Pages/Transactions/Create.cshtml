@@ -2,7 +2,7 @@
 @model CRUDCxC.Pages.Transactions.CreateModel
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 
 <body>
 
-    <h4>Transaction</h4>
+    <h4>Transacción</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -76,6 +76,7 @@
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
         }
     }
 </body>

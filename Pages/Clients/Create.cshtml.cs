@@ -38,6 +38,10 @@ namespace CRUDCxC.Pages.Clients
         {
             if (!ModelState.IsValid)
             {
+                ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
+.Cast<Status>()
+.Select(e => new { Id = e, Name = e.GetDisplayName() }),
+"Id", "Name");
                 return Page();
             }
 

@@ -8,7 +8,7 @@ public class DocumentType
     [Key]
     public int Id { get; set; }
     [Required]
-    [DisplayName("Description")]
+    [DisplayName("Descripción")]
     public string? Description { get; set; }
     [Required]
     [DisplayName("Cuenta Contable")]

@@ -24,13 +24,11 @@ namespace CRUDCxC.Pages.AccountEntries
         {
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
             ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
-        .Cast<MovementType>()
-        .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
+                .Cast<MovementType>()
+                .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
             ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
-        .Cast<Status>()
-        .Select(e => new { Id = e, Name = e.GetDisplayName() }),
-        "Id", "Name");
-
+                .Cast<Status>()
+                .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
 
             return Page();
         }
@@ -38,11 +36,45 @@ namespace CRUDCxC.Pages.AccountEntries
         [BindProperty]
         public AccountEntry AccountEntry { get; set; } = default!;
 
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
+                ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
+                    .Cast<MovementType>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
+                ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
+                    .Cast<Status>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
+                return Page();
+            }
+
+            var client = await _context.Clients.FindAsync(AccountEntry.ClientId);
+
+            if (client == null)
+            {
+                ModelState.AddModelError("AccountEntry.ClientId", "El cliente seleccionado no existe.");
+                ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
+                ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
+                    .Cast<MovementType>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
+                ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
+                    .Cast<Status>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
+                return Page();
+            }
+
+            if (client.Status == Status.Inactive)
+            {
+                ModelState.AddModelError("AccountEntry.ClientId", "No se puede realizar el siento contable porque el cliente está en estado 'Nuevo' o 'Inactivo'.");
+                ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
+                ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
+                    .Cast<MovementType>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
+                ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
+                    .Cast<Status>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
                 return Page();
             }
 
@@ -53,3 +85,4 @@ namespace CRUDCxC.Pages.AccountEntries
         }
     }
 }
+

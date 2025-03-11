@@ -50,12 +50,17 @@ namespace CRUDCxC.Pages.AccountEntries
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
+                ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber", AccountEntry.ClientId);
+                ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
+                    .Cast<MovementType>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name", AccountEntry.MovementType);
+                ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
+                    .Cast<Status>()
+                    .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name", AccountEntry.Status);
                 return Page();
             }
 
@@ -79,7 +84,6 @@ namespace CRUDCxC.Pages.AccountEntries
 
             return RedirectToPage("./Index");
         }
-
         private bool AccountEntryExists(int id)
         {
             return _context.AccountEntries.Any(e => e.Id == id);

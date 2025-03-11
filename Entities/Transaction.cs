@@ -29,7 +29,8 @@ public class Transaction
     public int ClientId { get; set; }
     public Client? Client { get; set; }
 
-    [Required(ErrorMessage = "El monto es obligatorio.")]
+    [Required]
+    [DisplayName("Monto")]
     [Range(1, double.MaxValue, ErrorMessage = "El monto debe ser mayor que 0.")]
     public decimal Amount { get; set; }
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

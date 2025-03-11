@@ -29,8 +29,9 @@ namespace CRUDCxC.Pages.AccountEntries
                 return NotFound();
             }
 
-            var accountentry = await _context.AccountEntries.FirstOrDefaultAsync(m => m.Id == id);
-
+            var accountentry = await _context.AccountEntries
+                .Include(a => a.Client) // Asegura que Client se cargue
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (accountentry == null)
             {
                 return NotFound();

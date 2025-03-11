@@ -29,7 +29,8 @@ namespace CRUDCxC.Pages.Transactions
                 return NotFound();
             }
 
-            var transaction = await _context.Transactions.FirstOrDefaultAsync(m => m.Id == id);
+            var transaction = await _context.Transactions.Include(t => t.Client)
+            .FirstOrDefaultAsync(m => m.Id == id);
 
             if (transaction == null)
             {

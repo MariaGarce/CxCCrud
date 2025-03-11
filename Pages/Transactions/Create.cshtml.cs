@@ -39,10 +39,12 @@ namespace CRUDCxC.Pages.Transactions
         {
             if (!ModelState.IsValid)
             {
+                ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
+.Cast<MovementType>()
+.Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
                 return Page();
             }
 
-            // Buscar el cliente para obtener su límite de crédito
             var client = await _context.Clients.FindAsync(Transaction.ClientId);
 
             if (client == null)
@@ -51,7 +53,6 @@ namespace CRUDCxC.Pages.Transactions
                 return Page();
             }
 
-            // Validar que el monto no supere el límite de crédito
             if (Transaction.Amount > client.CreditLimit)
             {
                 ModelState.AddModelError("Transaction.Amount", "El monto no puede ser mayor al límite de crédito del cliente.");
