@@ -1,9 +1,32 @@
 @page
 @model CRUDCxC.Pages.AccountingEntry.CreateModel
-
 @{
     Layout = "_Layout";
 }
 
-<h3>Asiento Contable</h3>
-<p class="text-muted">Esta funcionalidad estará disponible pronto.</p>
+<h3>Crear Asiento Contable</h3>
+<hr />
+
+<form method="post" class="row g-3">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="col-md-6">
+        <label asp-for="FechaDesde" class="form-label">Transacciones desde</label>
+        <input asp-for="FechaDesde" type="date" class="form-control" />
+        <span asp-validation-for="FechaDesde" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-6">
+        <label asp-for="FechaHasta" class="form-label">Transacciones hasta</label>
+        <input asp-for="FechaHasta" type="date" class="form-control" />
+        <span asp-validation-for="FechaHasta" class="text-danger"></span>
+    </div>
+
+    <div class="col-12 mt-3">
+        <button type="submit" class="btn btn-primary">Buscar Transacciones</button>
+    </div>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
