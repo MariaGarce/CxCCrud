@@ -1,16 +1,16 @@
 using CRUDCxC.Data;
+using CRUDCxC.Utils;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
-
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddDbContext<CxCDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    var connectionString = ConnectionStringBuilder.BuildFromEnvironment();
+    options.UseSqlServer(connectionString);
 });
+
 // builder.Services.AddRazorPages();
 // builder.Services.AddEndpointsApiExplorer();
 // builder.Services.AddSwaggerGen();
