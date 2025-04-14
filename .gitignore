@@ -1,0 +1,88 @@
+# -----------------------------
+# 🔧 .NET / ASP.NET Core
+# -----------------------------
+bin/
+obj/
+out/
+*.log
+*.tmp
+*.bak
+*.db
+*.db-shm
+*.db-wal
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider / VS Code / Visual Studio
+.vscode/
+.idea/
+*.DS_Store
+*.vs/
+
+# Auto-generated files
+wwwroot/lib/
+wwwroot/dist/
+Generated/
+
+# Publish outputs
+**/publish/
+**/release/
+*.exe
+*.dll
+*.pdb
+
+# -----------------------------
+# ⚙️ Docker
+# -----------------------------
+*.tar
+*.img
+.docker/
+docker-compose.override.yml
+.env
+
+# Optional: ignore Dockerfiles from specific contexts
+# (uncomment if not used in production)
+# CiCd/db/Dockerfile.migrator
+
+# -----------------------------
+# 🧪 Testing
+# -----------------------------
+TestResults/
+coverage/
+coverage.cobertura.xml
+*.coverage
+*.testsettings
+*.trx
+
+# -----------------------------
+# 🔐 Seguridad / secretos
+# -----------------------------
+*.key
+*.pem
+*.pfx
+*.cert
+*.secrets
+*.env
+
+# -----------------------------
+# 📦 Node
+# -----------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+
+# -----------------------------
+# 💥 Otros
+# -----------------------------
+Thumbs.db
+*.swp
+*.lock.json
+*.log.*
+*.sqlite
+*.mdf
+*.ldf

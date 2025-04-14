@@ -1,0 +1,39 @@
+# Build output
+bin/
+obj/
+
+# Publicaciones de dotnet
+*.dll
+*.exe
+*.pdb
+
+# Archivos temporales
+*.log
+*.tmp
+*.bak
+
+# Config de IDEs
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Git
+.git/
+.gitignore
+
+# Archivos del sistema operativo
+Thumbs.db
+.DS_Store
+
+# Templates de archivos de entorno
+.env.*
+*.secret
+*.key
+
+# Archivos de despliegue o CI/CD innecesarios en la imagen final
+docker-compose.yml
+Dockerfile*
+
