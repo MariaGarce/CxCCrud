@@ -43,8 +43,9 @@ namespace CRUDCxC.Pages.Transactions
             }
 
             Transaction = transaction;
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
-            ViewData["DocumentTypeId"] = new SelectList(_context.DocumentTypes, "Id", "AccountingAccount");
+
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name", Transaction.ClientId);
+            ViewData["DocumentTypeId"] = new SelectList(_context.DocumentTypes, "Id", "Description", Transaction.DocumentTypeId);
             ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
                 .Cast<MovementType>()
                 .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");

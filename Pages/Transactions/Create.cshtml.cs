@@ -24,11 +24,13 @@ namespace CRUDCxC.Pages.Transactions
         {
             ViewData["Title"] = "Crear Transacción";
 
-            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
-            ViewData["DocumentTypeId"] = new SelectList(_context.DocumentTypes, "Id", "AccountingAccount");
+            ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "Name");
+
+            ViewData["DocumentTypeId"] = new SelectList(_context.DocumentTypes, "Id", "Description");
+
             ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
-        .Cast<MovementType>()
-        .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
+                .Cast<MovementType>()
+                .Select(e => new { Id = e, Name = e.GetDisplayName() }), "Id", "Name");
 
             return Page();
         }
@@ -65,6 +67,8 @@ namespace CRUDCxC.Pages.Transactions
                 ModelState.AddModelError("Transaction.ClientId", "No se pueden realizar transacciones para clientes inactivos.");
                 return Page();
             }
+            
+            Transaction.Date = DateTime.Now;
 
             _context.Transactions.Add(Transaction);
             await _context.SaveChangesAsync();
