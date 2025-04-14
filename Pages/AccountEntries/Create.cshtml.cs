@@ -22,6 +22,8 @@ namespace CRUDCxC.Pages.AccountEntries
 
         public IActionResult OnGet()
         {
+            ViewData["Title"] = "Crear Asiento Contable";
+
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
             ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))
                 .Cast<MovementType>()

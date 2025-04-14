@@ -23,6 +23,8 @@ namespace CRUDCxC.Pages.Transactions
 
         public async Task OnGetAsync()
         {
+            ViewData["Title"] = "Transacciones";
+
             Transaction = await _context.Transactions
                 .Include(t => t.Client)
                 .Include(t => t.DocumentType).ToListAsync();

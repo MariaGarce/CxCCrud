@@ -5,6 +5,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
+if (builder.Environment.IsDevelopment())
+{
+    DotNetEnv.Env.Load();
+}
+
 builder.Services.AddDbContext<CxCDbContext>(options =>
 {
     var connectionString = ConnectionStringBuilder.BuildFromEnvironment();

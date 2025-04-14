@@ -22,6 +22,8 @@ namespace CRUDCxC.Pages.Transactions
 
         public IActionResult OnGet()
         {
+            ViewData["Title"] = "Crear Transacción";
+
             ViewData["ClientId"] = new SelectList(_context.Clients, "Id", "IdentificationNumber");
             ViewData["DocumentTypeId"] = new SelectList(_context.DocumentTypes, "Id", "AccountingAccount");
             ViewData["MovementTypes"] = new SelectList(Enum.GetValues(typeof(MovementType))

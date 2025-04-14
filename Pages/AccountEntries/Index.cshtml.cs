@@ -23,6 +23,8 @@ namespace CRUDCxC.Pages.AccountEntries
 
         public async Task OnGetAsync()
         {
+            ViewData["Title"] = "Asientos Contables";
+
             AccountEntry = await _context.AccountEntries
                 .Include(a => a.Client).ToListAsync();
         }

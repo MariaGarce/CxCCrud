@@ -23,6 +23,8 @@ namespace CRUDCxC.Pages.DocumentsType
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            ViewData["Title"] = "Ver Tipo de Documento";
+
             if (id == null)
             {
                 return NotFound();

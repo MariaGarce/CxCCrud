@@ -24,6 +24,8 @@ namespace CRUDCxC.Pages.Clients
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            ViewData["Title"] = "Eliminar Cliente";
+
             if (id == null)
             {
                 return NotFound();

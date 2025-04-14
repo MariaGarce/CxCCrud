@@ -26,6 +26,8 @@ namespace CRUDCxC.Pages.Transactions
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            ViewData["Title"] = "Editar Transacción";
+
             if (id == null)
             {
                 return NotFound();

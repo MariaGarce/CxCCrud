@@ -26,6 +26,8 @@ namespace CRUDCxC.Pages.AccountEntries
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            ViewData["Title"] = "Editar Asiento Contable";
+
             if (id == null)
             {
                 return NotFound();

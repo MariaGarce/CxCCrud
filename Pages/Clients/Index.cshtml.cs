@@ -23,6 +23,8 @@ namespace CRUDCxC.Pages.Clients
 
         public async Task OnGetAsync()
         {
+            ViewData["Title"] = "Clientes";
+
             Client = await _context.Clients.ToListAsync();
         }
     }
