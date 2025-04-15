@@ -45,7 +45,8 @@ public class CreateModel : PageModel
         TransaccionesFiltradas = await _context.Transactions
         .Include(t => t.Client)
         .Include(t => t.DocumentType)
-        .Where(t => t.Date.Date >= FechaDesde.Value.Date && t.Date.Date <= FechaHasta.Value.Date)
+        .Where(t => t.Date.Date >= FechaDesde.Value.Date && t.Date.Date <= FechaHasta.Value.Date &&
+                    t.MovementType == MovementType.Debit)
         .OrderBy(t => t.Date)
         .ToListAsync();
 

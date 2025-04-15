@@ -22,3 +22,24 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+    
+  cxc-app:
+    build:
+      context: .
+      dockerfile: CiCd/Dockerfile
+    depends_on:
+      - sqlserver
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: "http://+:80"
+      DB_SERVER: sqlserver
+      DB_PORT: 1433
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      BASE_CONTABILIDAD_URL: ${BASE_CONTABILIDAD_URL}
+      CONTABILIDAD_API_USER: ${CONTABILIDAD_API_USER}
+      CONTABILIDAD_API_PASSWORD: ${CONTABILIDAD_API_PASSWORD}

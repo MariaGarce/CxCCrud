@@ -18,23 +18,9 @@ builder.Services.AddDbContext<CxCDbContext>(options =>
 
 builder.Services.AddHttpClient<ContabilidadApiClient>();
 
-// builder.Services.AddRazorPages();
-// builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
 Console.WriteLine($"🌐 Entorno actual: {builder.Environment.EnvironmentName}");
 
 var app = builder.Build();
-
-
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
-
-// app.UseHttpsRedirection();
-// app.MapRazorPages();
 
 
 // app.Run();
@@ -55,7 +41,7 @@ using (var scope = app.Services.CreateScope())
     DbSeeder.SeedTransactions(context);
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

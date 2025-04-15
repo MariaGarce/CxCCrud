@@ -10,7 +10,12 @@ namespace CRUDCxC.Utils
             var dbServer = Environment.GetEnvironmentVariable("DB_SERVER");
             var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
-            var connectionString = $"Server={dbServer},{dbPort};Database={dbName};User Id={dbUser};Password={dbPassword};Encrypt=False;";
+            bool isAzureSql = dbServer?.Contains(".database.windows.net") == true;
+
+            var userId = isAzureSql ? $"{dbUser}@{dbServer?.Split('.')[0]}" : dbUser;
+            var encrypt = isAzureSql ? "True" : "False";
+            var trustCert = isAzureSql ? "False" : "True";
+            var connectionString = $"Server={dbServer},{dbPort};Database={dbName};User Id={userId};Password={dbPassword};Encrypt={encrypt};TrustServerCertificate={trustCert};Connection Timeout=30;";
 
             return connectionString;
         }
