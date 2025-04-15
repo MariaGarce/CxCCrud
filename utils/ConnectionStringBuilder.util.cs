@@ -11,7 +11,6 @@ namespace CRUDCxC.Utils
             var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
             var connectionString = $"Server={dbServer},{dbPort};Database={dbName};User Id={dbUser};Password={dbPassword};Encrypt=False;";
-            Console.WriteLine($"🔧 [DEBUG] Connection string: {connectionString}");
 
             return connectionString;
         }

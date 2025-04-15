@@ -21,6 +21,7 @@ builder.Services.AddHttpClient<ContabilidadApiClient>();
 // builder.Services.AddRazorPages();
 // builder.Services.AddEndpointsApiExplorer();
 // builder.Services.AddSwaggerGen();
+Console.WriteLine($"🌐 Entorno actual: {builder.Environment.EnvironmentName}");
 
 var app = builder.Build();
 
