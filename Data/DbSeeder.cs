@@ -30,6 +30,13 @@ public static class DbSeeder
                     Name = "Pedro Ramírez",
                     Status = Status.Active,
                     IdentificationNumber = "00345678908",
+                },
+                new Client
+                {
+                    Status = Status.Active,
+                    Name = "Cliente Contable",
+                    CreditLimit = 999_999_999_999.99m,
+                    IdentificationNumber = "00000000000"
                 }
             };
 
@@ -55,6 +62,8 @@ public static class DbSeeder
 
         foreach (var client in clients)
         {
+            if (client.IdentificationNumber == "00000000000") continue;
+
             string descripcion = $"Cuentas x Cobrar Cliente '{client.Name}'";
             if (!context.DocumentTypes.Any(dt => dt.Description == descripcion))
             {
@@ -72,6 +81,10 @@ public static class DbSeeder
 
     public static void SeedTransactions(CxCDbContext context)
     {
+        var actualTransactions = context.Transactions.ToList();
+        
+        if (actualTransactions.Any()) return;
+
         var clients = context.Clients.ToList();
 
         var docTypes = context.DocumentTypes
@@ -85,12 +98,14 @@ public static class DbSeeder
 
         foreach (var client in clients)
         {
+            if (client.IdentificationNumber == "00000000000") continue;
+
             var documentType = docTypes.FirstOrDefault(dt => dt.Description.Contains(client.Name));
             if (documentType == null) continue;
 
             for (int day = 1; day <= 28; day++)
             {
-                var amount = Math.Min(random.Next(1000, 10000), (int)client.CreditLimit);
+                var amount = Math.Min(random.Next(1000, 10000), client.CreditLimit);
 
                 var transaction = new Transaction
                 {
