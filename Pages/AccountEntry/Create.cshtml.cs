@@ -1,4 +1,5 @@
 using CRUDCxC.Entities;
+using CRUDCxC.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -83,6 +84,15 @@ public class CreateModel : PageModel
 
         try
         {
+            var apiClient = new ContabilidadApiClient(new HttpClient());
+            var result = await apiClient.EnviarAsientoContableAsync(total);
+
+            if (!result)
+            {
+                Console.WriteLine("❌ Error al enviar el asiento contable al sistema externo.");
+                throw new Exception("Error al enviar el asiento contable al sistema externo.");
+            }
+
             _context.Transactions.Add(transaccionResumen);
             await _context.SaveChangesAsync();
 

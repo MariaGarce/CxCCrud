@@ -16,6 +16,8 @@ builder.Services.AddDbContext<CxCDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
+builder.Services.AddHttpClient<ContabilidadApiClient>();
+
 // builder.Services.AddRazorPages();
 // builder.Services.AddEndpointsApiExplorer();
 // builder.Services.AddSwaggerGen();
