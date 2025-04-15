@@ -23,6 +23,8 @@ namespace CRUDCxC.Pages.DocumentsType
 
         public async Task OnGetAsync()
         {
+            ViewData["Title"] = "Tipos de Documentos";
+
             DocumentType = await _context.DocumentTypes.ToListAsync();
         }
     }

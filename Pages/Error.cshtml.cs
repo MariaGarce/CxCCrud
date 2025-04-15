@@ -21,6 +21,8 @@ public class ErrorModel : PageModel
 
     public void OnGet()
     {
+        ViewData["Title"] = "Error";
+
         RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
     }
 }

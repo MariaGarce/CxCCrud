@@ -22,6 +22,8 @@ namespace CRUDCxC.Pages.Clients
 
         public IActionResult OnGet()
         {
+            ViewData["Title"] = "Crear Cliente";
+
             ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
     .Cast<Status>()
     .Select(e => new { Id = e, Name = e.GetDisplayName() }),

@@ -24,13 +24,16 @@ namespace CRUDCxC.Pages.Transactions
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            ViewData["Title"] = "Eliminar Transacción";
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var transaction = await _context.Transactions.Include(t => t.Client)
-            .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(t => t.DocumentType)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (transaction == null)
             {

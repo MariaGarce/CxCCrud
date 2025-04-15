@@ -1,0 +1,23 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS builder
+
+WORKDIR /app
+COPY . .
+
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+RUN dotnet restore ./CRUDCxC.csproj
+
+RUN chmod +x ./CiCd/db/init-db.sh
+
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS migrator
+
+WORKDIR /app
+
+COPY --from=builder /app /app
+
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+ENTRYPOINT ["sh", "./CiCd/db/init-db.sh"]

@@ -1,32 +1,26 @@
 using CRUDCxC.Data;
+using CRUDCxC.Utils;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
+if (builder.Environment.IsDevelopment())
+{
+    DotNetEnv.Env.Load();
+}
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddDbContext<CxCDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    var connectionString = ConnectionStringBuilder.BuildFromEnvironment();
+    options.UseSqlServer(connectionString);
 });
-// builder.Services.AddRazorPages();
-// builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
+
+builder.Services.AddHttpClient<ContabilidadApiClient>();
+
+Console.WriteLine($"🌐 Entorno actual: {builder.Environment.EnvironmentName}");
 
 var app = builder.Build();
-
-
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
-
-// app.UseHttpsRedirection();
-// app.MapRazorPages();
 
 
 // app.Run();
@@ -37,7 +31,17 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<CxCDbContext>();
+
+    DbSeeder.SeedClients(context);
+    DbSeeder.SeedDocumentTypes(context);
+    DbSeeder.SeedTransactions(context);
+}
+
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

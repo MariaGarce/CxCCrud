@@ -22,6 +22,8 @@ namespace CRUDCxC.Pages.DocumentsType
 
         public IActionResult OnGet()
         {
+            ViewData["Title"] = "Crear Tipo de Documento";
+
             ViewData["StatusList"] = new SelectList(Enum.GetValues(typeof(Status))
 .Cast<Status>()
 .Select(e => new { Id = e, Name = e.GetDisplayName() }),
