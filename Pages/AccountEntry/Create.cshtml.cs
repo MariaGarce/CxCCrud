@@ -65,26 +65,11 @@ public class CreateModel : PageModel
         var total = TransaccionesFiltradas.Sum(t => t.Amount);
         Console.WriteLine($"🧾 Total contabilizado: {total:C}");
 
-        int siguienteDocNum = await _context.Transactions.CountAsync() + 1;
-        string numeroDocumento = $"DOC-{siguienteDocNum:D5}";
+        int lastId = await _context.Transactions.MaxAsync(t => (int?)t.Id) ?? 0;
+        var numeroDocumento = $"DOC-{lastId + 1:D5}";
 
         var clienteContable = await _context.Clients
             .FirstOrDefaultAsync(c => c.IdentificationNumber == "00000000000");
-
-        if (clienteContable == null)
-        {
-            clienteContable = new Client
-            {
-                Name = "Cliente Contable",
-                IdentificationNumber = "000-0000000-0",
-                CreditLimit = decimal.MaxValue,
-                Status = Status.Active
-            };
-
-            _context.Clients.Add(clienteContable);
-            await _context.SaveChangesAsync();
-        }
-
 
         var transaccionResumen = new Transaction
         {
@@ -94,7 +79,6 @@ public class CreateModel : PageModel
             DocumentTypeId = ingresosDoc.Id,
             MovementType = MovementType.Credit,
             DocumentNumber = numeroDocumento,
-
         };
 
         try

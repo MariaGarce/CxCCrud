@@ -32,7 +32,8 @@ namespace CRUDCxC.Pages.Transactions
             }
 
             var transaction = await _context.Transactions.Include(t => t.Client)
-            .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(t => t.DocumentType)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (transaction == null)
             {
